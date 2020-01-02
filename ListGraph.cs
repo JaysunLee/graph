@@ -56,5 +56,50 @@ namespace Graph
         {
             return AdjacencyList[vertex];
         }
+
+        public static HashSet<Vertex> DepthFirstTraversal(ListGraph graph, Vertex root)
+        {
+            HashSet<Vertex> visited = new HashSet<Vertex>();
+            Stack<Vertex> stack = new Stack<Vertex>();
+
+            stack.Push(root);
+            while (stack.Count > 0)
+            {
+                Vertex vertex = stack.Pop();
+                if (!visited.Contains(vertex))
+                {
+                    visited.Add(vertex);
+                    foreach (var adjacent in graph.GetAdjacentVertices(vertex))
+                    {
+                        stack.Push(adjacent);
+                    }
+                }
+            }
+
+            return visited;
+        }
+
+        public static HashSet<Vertex> BreadthFirstTraversal(ListGraph graph, Vertex root)
+        {
+            HashSet<Vertex> visited = new HashSet<Vertex>();
+            Queue<Vertex> queue = new Queue<Vertex>();
+
+            visited.Add(root);
+            queue.Enqueue(root);
+            while (queue.Count > 0)
+            {
+                Vertex vertex = queue.Dequeue();
+                foreach (var adjacent in graph.GetAdjacentVertices(vertex))
+                {
+                    if (!visited.Contains(adjacent))
+                    {
+                        visited.Add(adjacent);
+                        queue.Enqueue(adjacent);
+                    }
+                }
+            }
+
+            return visited;
+        }
     }
 }

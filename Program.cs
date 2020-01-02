@@ -24,9 +24,12 @@ namespace Graph
             graph.AddEdge(alice, maria);
             graph.AddEdge(rob, maria);
 
-            graph.RemoveEdge(alice, maria);
-            graph.RemoveVertex(mark);
-            foreach (var vertex in graph.GetAdjacentVertices(alice))
+            foreach (var vertex in ListGraph.DepthFirstTraversal(graph, bob))
+            {
+                Console.WriteLine(vertex.Label);
+            }
+            
+            foreach (var vertex in ListGraph.BreadthFirstTraversal(graph, bob))
             {
                 Console.WriteLine(vertex.Label);
             }
